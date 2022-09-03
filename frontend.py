@@ -51,5 +51,4 @@ def sale():
 cursor.execute("show tables")
 cprint(cursor)
 cursor.execute("show databases")
-
 cprint(cursor)
