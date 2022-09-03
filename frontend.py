@@ -51,9 +51,4 @@ def sale():
 cursor.execute("show tables")
 cprint(cursor)
 cursor.execute("show databases")
-<<<<<<< HEAD
 cprint(cursor)
-=======
-
-cprint(cursor)
->>>>>>> 22e9aeb927874d0bdca5b2d7576ee634da261c6e
