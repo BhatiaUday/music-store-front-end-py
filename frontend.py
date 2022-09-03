@@ -9,7 +9,7 @@ cnx = mysql.connect(user=uname, password=pwd,host=serverip)
 cursor= cnx.cursor()
 cursor.execute("use testpylink")
 try:
-    cursor.execute("create table cinfo(cuid int(6),name varchar(40),phoneno int(10),addrline1 varchar(100),addrline2 varchar(100),city varchar(50),state varchar(50),zipcode int(6))")
+    cursor.execute("create table custinfo(custid int(6),name varchar(40),phone_no int(10),addrline1 varchar(100),addrline2 varchar(100),city varchar(50),state varchar(50),zipcode int(6))")
 except:
     pass
 try:
