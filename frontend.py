@@ -142,7 +142,16 @@ def delsale():
     query="DELETE from sales where order_id="+str(iddel)
     cursor.execute(query)
     cnx.commit()
+<<<<<<< Updated upstream
     wait=input("press enter to main menu...")
+=======
+def updateinfo():
+    iddel=int(input("enter order id to be updated"))
+    query="DELETE from sales where order_id="+str(iddel)
+    cursor.execute(query)
+    cnx.commit()
+    
+>>>>>>> Stashed changes
 
 
 #main
