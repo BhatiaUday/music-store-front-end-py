@@ -18,7 +18,7 @@ try:
 except:
     pass
 try:
-    cursor.execute("create table sales(order_id int PRIMARY KEY ,custid int , instrument varchar(40) , empid int , type varchar(10),price int, FOREIGN KEY (custid) REFERENCES custinfo(custid), FOREIGN KEY (empid) REFERENCES empinfo(empid))")
+    cursor.execute("create table sales(order_id int PRIMARY KEY ,custid int , instrument varchar(40) , empid int , type varchar(10),price bigint, FOREIGN KEY (custid) REFERENCES custinfo(custid), FOREIGN KEY (empid) REFERENCES empinfo(empid))")
 except:
     pass
 #functions
@@ -47,7 +47,7 @@ for x in cursor:
     strippedx=str(x).replace('(','').replace(')','').replace(',','')
     print(strippedx,"1st")
     try:
-        currentsale=currentsale+int(strippedx)+1
+        currentsale=currentsale+int(strippedx)
     except:
         pass
 print(currentsale,"2nd")
@@ -105,6 +105,11 @@ def newemp():
     cursor.execute(query)
     cnx.commit()
     currentempid = currentempid + 1
+def delsale():
+    iddel=int(input("enter order id to be deleted"))
+    query="DELETE from sales where order_id="+str(iddel)
+    cursor.execute(query)
+    cnx.commit()
 
 while True:
     menu()
@@ -114,7 +119,7 @@ while True:
     if choice==2:
         newcust()
     if choice==3:
-        pass #remove sale
+        delsale()
     if choice==4:
         pass # update cinfo
     if choice==5:
@@ -124,11 +129,15 @@ while True:
     if choice==7:
         cursor.execute("select * from sales")
         cprint(cursor)
+        wait=input("press enter to main menu...")
     if choice==8:
         cursor.execute("select * from custinfo")
         cprint(cursor)
+        wait=input("press enter to main menu...")
     if choice==9:
         cursor.execute("select * from empinfo")
         cprint(cursor)
+        wait=input("press enter to main menu...")
     if choice==0:
         os._exit(1)
+
