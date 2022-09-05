@@ -37,7 +37,6 @@ def menu1():
     print("2.Add new Custumer")
     print("3.Cancel/refund a sale")
     print("4.Update Custumer info")    
-<<<<<<< Updated upstream
     print("5.Add Employee")
     print("6.Update Employee info")
     print("7.Quit")
@@ -59,61 +58,20 @@ def sale():
     data=str(currentsale)+","+str(cuid)+","+"'"+str(item)+"'"+","+str(empsale)+","+"'"+str(type)+"'"+","+str(price)
     query="insert into sales values ("+data+")"
     cursor.execute(query)
-
-=======
-    print("5.Add")
-    print("6.show all info")
-    print("7.Quit")
-def menu2():
-    print("1.add new employee")
-    print("2.update employee data")
-    print("3.check employee sales")
-    print("4. show all employee info info")    
-    print("5.Quit")
 def cust():
     custid=int(input("enter custid"))
     cname=input("enter customer name")
     cphone_no=int(input("enter customer phone no"))
     caddress=input("enter customer address")
-def sale():
-    order_id=int(input("enter order id"))
-    custid=input("Enter Cust ID:")
-    instrument=input("Enter item name:")
-    empid=input("Enter Employee ID:")
-    price=float(input("enter price"))
-    type=input("enter type of sale")
-    query="INSERT into sales values(order_id,custid,instrument,empid,type,price)"
-    cursor.execute(query)
-    cursor.execute("describe sales")
-def emp():
->>>>>>> Stashed changes
 
+def emp():
     empid=int(input("enter empid"))
     empname=input("enter empname")
     phone_no=int(input("enter phone (keep it in 10 digits"))
     address=input("enter address as city_area")
 cursor.execute("show tables")
 cprint(cursor)
-<<<<<<< Updated upstream
 menu()
 choice=int(input("Enter Choice: "))
 if choice==1:
     sale()
-=======
-while True:
-    m_choice=input("DO you want to access employee or customer data y/n?")
-    if m_choice=="y":
-        print("enter c for customer or e for employee")
-        k=input("enter your choice")
-        if k=="c":
-            menu1()
-            choice=int(input("enter a choice in 1 to 7"))
-            if choice==1:
-                sale()
-        elif k=="e":
-            menu2()
-
-
-
-
->>>>>>> Stashed changes
