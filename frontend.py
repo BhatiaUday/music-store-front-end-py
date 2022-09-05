@@ -17,6 +17,7 @@ try:
 except:
     pass
 try:
+<<<<<<< Updated upstream
     cursor.execute("create table sales(order_id int PRIMARY KEY ,custid int , instrument varchar(40) , empid int , type varchar(10),price float, FOREIGN KEY (custid) REFERENCES custinfo(custid), FOREIGN KEY (empid) REFERENCES empinfo(empid))")
 except:
     pass
@@ -29,6 +30,7 @@ def menu():
     print("2.Add new Custumer")
     print("3.Cancel/refund a sale")
     print("4.Update Custumer info")    
+<<<<<<< Updated upstream
     print("5.Add Employee")
     print("6.Update Employee info")
     print("7.Quit")
@@ -58,3 +60,21 @@ menu()
 choice=int(input("Enter Choice: "))
 if choice==1:
     sale()
+=======
+while True:
+    m_choice=input("DO you want to access employee or customer data y/n?")
+    if m_choice=="y":
+        print("enter c for customer or e for employee")
+        k=input("enter your choice")
+        if k=="c":
+            menu1()
+            choice=int(input("enter a choice in 1 to 7"))
+            if choice==1:
+                sale()
+        elif k=="e":
+            menu2()
+
+
+
+
+>>>>>>> Stashed changes
