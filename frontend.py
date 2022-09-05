@@ -13,7 +13,7 @@ try:
 except:
     pass
 try:
-    cursor.execute("create table empinfo(")
+    cursor.execute("create table empinfo(empid int(6) PRIMARY KEY ,empname varchar(40),phone_no int(10),address varchar(50))")
 except:
     pass
 try:
