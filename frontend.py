@@ -17,7 +17,7 @@ try:
 except:
     pass
 try:
-    cursor.execute("create table sales(order_id int PRIMARY KEY ,custid int REFERENCES custinfo(custid), instrument varchar(40) , empid int REFERENCES empinfo(empid), type varchar(10))")
+    cursor.execute("create table sales(order_id int PRIMARY KEY ,custid int , instrument varchar(40) , empid int , type varchar(10), FOREIGN KEY (custid) REFERENCES custinfo(custid), FOREIGN KEY (empid) REFERENCES empinfo(empid))")
 except:
     pass
 #functions
