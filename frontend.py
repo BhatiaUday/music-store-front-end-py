@@ -1,6 +1,5 @@
 #Music store FRONT END
 
-from turtle import ycor
 import mysql.connector as mysql
 import getpass
 import os
