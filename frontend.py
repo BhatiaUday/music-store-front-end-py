@@ -47,7 +47,7 @@ for x in cursor:
     strippedx=str(x).replace('(','').replace(')','').replace(',','')
     print(strippedx,"1st")
     try:
-        currentsale=currentsale+int(strippedx)+1
+        currentsale=currentsale+int(strippedx)
     except:
         pass
 print(currentsale,"2nd")
