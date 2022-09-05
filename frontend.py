@@ -9,17 +9,14 @@ cnx = mysql.connect(user=uname, password=pwd,host=serverip)
 cursor= cnx.cursor()
 cursor.execute("use testpylink")
 try:
-    cursor.execute("create table custinfo(custid int(6) PRIMARY KEY,name varchar(40),phone_no int(10),address varchar(50))")
+    cursor.execute("create table custinfo(custid int PRIMARY KEY,name varchar(40),phone_no int,address varchar(50))")
 except:
     pass
 try:
-    cursor.execute("create table empinfo(empid int(6) PRIMARY KEY ,empname varchar(40),phone_no int(10),address varchar(50))")
+    cursor.execute("create table empinfo(empid int PRIMARY KEY ,empname varchar(40),phone_no int,address varchar(50))")
 except:
     pass
-try:
-    cursor.execute("create table sales(custid int(6) FOREIGN KEY , instrument varchar(36) , order id int(6) PRIMARY KEY , empid int(6) FOREIGN KEY , mode varchar(10) ")
-except:
-    pass
+cursor.execute("create table sales(order_id int PRIMARY KEY ,custid int, instrument varchar40) , empid int , type varchar(10),FOREIGN KEY(custid) REFERENCES custinfo(custid),FOREIGN KEY(empid) REFERENCES empinfo(empid)")
 
 #functions
 def cprint(cursorfx):
@@ -45,6 +42,4 @@ def sale():
 
 
 cursor.execute("show tables")
-cprint(cursor)
-cursor.execute("show databases")
 cprint(cursor)
