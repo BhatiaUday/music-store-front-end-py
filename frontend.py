@@ -3,7 +3,7 @@
 import mysql.connector as mysql
 import getpass
 uname=input("Username(root is default)") or "root"
-pwd=getpass.getpass("Pwd(No default value)") 
+pwd=getpass.getpass("Pwd(No default value)") or "wysiwygmn@36"
 serverip=input("Server address(enter for default)") or "localhost"
 cnx = mysql.connect(user=uname, password=pwd,host=serverip)
 cursor= cnx.cursor()
@@ -19,13 +19,20 @@ except:
 try:
 <<<<<<< Updated upstream
     cursor.execute("create table sales(order_id int PRIMARY KEY ,custid int , instrument varchar(40) , empid int , type varchar(10),price float, FOREIGN KEY (custid) REFERENCES custinfo(custid), FOREIGN KEY (empid) REFERENCES empinfo(empid))")
+=======
+    cursor.execute("create table sales(order_id int PRIMARY KEY ,custid int , instrument varchar(40) , empid int , type varchar(10),price float FOREIGN KEY (custid) REFERENCES custinfo(custid), FOREIGN KEY (empid) REFERENCES empinfo(empid))")
+>>>>>>> Stashed changes
 except:
     pass
 #functions
 def cprint(cursorfx):
     for x in cursorfx:
         print(x)
-def menu():
+
+
+
+
+def menu1():
     print("1.Make a sale")
     print("2.Add new Custumer")
     print("3.Cancel/refund a sale")
@@ -53,9 +60,41 @@ def sale():
     query="insert into sales values ("+data+")"
     cursor.execute(query)
 
+=======
+    print("5.Add")
+    print("6.show all info")
+    print("7.Quit")
+def menu2():
+    print("1.add new employee")
+    print("2.update employee data")
+    print("3.check employee sales")
+    print("4. show all employee info info")    
+    print("5.Quit")
+def cust():
+    custid=int(input("enter custid"))
+    cname=input("enter customer name")
+    cphone_no=int(input("enter customer phone no"))
+    caddress=input("enter customer address")
+def sale():
+    order_id=int(input("enter order id"))
+    custid=input("Enter Cust ID:")
+    instrument=input("Enter item name:")
+    empid=input("Enter Employee ID:")
+    price=float(input("enter price"))
+    type=input("enter type of sale")
+    query="INSERT into sales values(order_id,custid,instrument,empid,type,price)"
+    cursor.execute(query)
+    cursor.execute("describe sales")
+def emp():
+>>>>>>> Stashed changes
 
+    empid=int(input("enter empid"))
+    empname=input("enter empname")
+    phone_no=int(input("enter phone (keep it in 10 digits"))
+    address=input("enter address as city_area")
 cursor.execute("show tables")
 cprint(cursor)
+<<<<<<< Updated upstream
 menu()
 choice=int(input("Enter Choice: "))
 if choice==1:
