@@ -78,7 +78,7 @@ def cprint(cursorfx):
 def menu():
     print("1.Make a sale")
     print("2.Add new Custumer")
-    print("3.Cancel a sale")
+    print("3.Update/Cancel a sale")
     print("4.Update Custumer info")    
     print("5.Add Employee")
     print("6.Update Employee info")
@@ -136,22 +136,45 @@ def newemp():
     currentempid = currentempid + 1
     wait=input("press enter to main menu...")
 
-
-def delsale():
-    iddel=int(input("enter order id to be deleted"))
-    query="DELETE from sales where order_id="+str(iddel)
-    cursor.execute(query)
-    cnx.commit()
-<<<<<<< Updated upstream
-    wait=input("press enter to main menu...")
-=======
 def updateinfo():
     iddel=int(input("enter order id to be updated"))
     query="DELETE from sales where order_id="+str(iddel)
     cursor.execute(query)
     cnx.commit()
+    cuid=input("Enter Cust ID: ")
+    item=input("Enter Item Name: ")
+    empsale=input("Enter Employee ID: ")
+    price=input("Enter Price: ")
+    type=input("Enter Type(sale/rent/repair): ")
+    data=str(iddel)+","+str(cuid)+","+"'"+str(item)+"'"+","+str(empsale)+","+"'"+str(type)+"'"+","+str(price)
+    query="insert into sales values ("+data+")"
+    cursor.execute(query)
+    cnx.commit()
+    print("Sale Updated Successfully")
+    cursor.execute("select * from sales where order_id ="+str(iddel))
+    cprint(cursor)
+    wait=input("press enter to main menu...")
+
+
+def delsale():
+    print("1.Update sale")
+    print("2.Delete sale")
+    option=int(input("Enter Choice: "))
+    if option == 1:
+        updateinfo()
+        pass
+    else:
+        iddel=int(input("enter order id to be deleted"))
+        cursor.execute("select * from sales where order_id ="+str(iddel))
+        cprint(cursor)
+        query="DELETE from sales where order_id="+str(iddel)
+        cursor.execute(query)
+        cnx.commit()
+        print("Deleted Successfully")
+        wait=input("press enter to main menu...")
     
->>>>>>> Stashed changes
+
+    
 
 
 #main
