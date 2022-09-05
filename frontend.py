@@ -16,8 +16,10 @@ try:
     cursor.execute("create table empinfo(empid int PRIMARY KEY ,empname varchar(40),phone_no int,address varchar(50))")
 except:
     pass
-cursor.execute("create table sales(order_id int PRIMARY KEY ,custid int REFERENCES custinfo(custid), instrument varchar(40) , empid int REFERENCES empinfo(empid), type varchar(10))")
-
+try:
+    cursor.execute("create table sales(order_id int PRIMARY KEY ,custid int REFERENCES custinfo(custid), instrument varchar(40) , empid int REFERENCES empinfo(empid), type varchar(10))")
+except:
+    pass
 #functions
 def cprint(cursorfx):
     for x in cursorfx:
