@@ -9,19 +9,65 @@ serverip=input("Server address(enter for default)") or "localhost"
 cnx = mysql.connect(user=uname, password=pwd,host=serverip)
 cursor= cnx.cursor()
 cursor.execute("use testpylink")
+
+#creating database
 try:
     cursor.execute("create table custinfo(custid int PRIMARY KEY,name varchar(40),phone_no bigint(10),address varchar(100))")
 except:
     pass
+
+
 try:
     cursor.execute("create table empinfo(empid int PRIMARY KEY ,empname varchar(40),phone_no bigint(10),address varchar(100))")
 except:
     pass
+
+
 try:
     cursor.execute("create table sales(order_id int PRIMARY KEY ,custid int , instrument varchar(40) , empid int , type varchar(10),price bigint, FOREIGN KEY (custid) REFERENCES custinfo(custid), FOREIGN KEY (empid) REFERENCES empinfo(empid))")
 except:
     pass
+
+#init environment variables
+
+currentsale = 1
+cursor.execute("select MAX(order_id) from sales")
+for x in cursor:
+    strippedx=str(x).replace('(','').replace(')','').replace(',','')
+    print(strippedx,"1st")
+    try:
+        currentsale=currentsale+int(strippedx)
+    except:
+        pass
+print(currentsale,"2nd")
+
+
+currentcuid = 1
+cursor.execute("select MAX(custid) from custinfo")
+for y in cursor:
+    strippedy=str(y).replace('(','').replace(')','').replace(',','')
+    print(strippedy,"3rd")
+    try:
+        currentcuid=currentcuid+int(strippedy)
+    except:
+        pass
+print(currentcuid,"4th")
+
+
+currentempid =1
+cursor.execute("select MAX(empid) from empinfo")
+for z in cursor:
+    strippedz=str(z).replace('(','').replace(')','').replace(',','')
+    print(strippedz,"5th")
+    try:
+        currentempid=currentempid+int(strippedz)
+    except:
+        pass
+print(currentempid,"6th")
+
+
 #functions
+
 def cprint(cursorfx):
     for x in cursorfx:
         print(x)
@@ -41,36 +87,7 @@ def menu():
     print("9.Display all employees")
     print("0.Quit")
 
-currentsale = 1
-cursor.execute("select MAX(order_id) from sales")
-for x in cursor:
-    strippedx=str(x).replace('(','').replace(')','').replace(',','')
-    print(strippedx,"1st")
-    try:
-        currentsale=currentsale+int(strippedx)
-    except:
-        pass
-print(currentsale,"2nd")
-currentcuid = 1
-cursor.execute("select MAX(custid) from custinfo")
-for y in cursor:
-    strippedy=str(y).replace('(','').replace(')','').replace(',','')
-    print(strippedy,"3rd")
-    try:
-        currentcuid=currentcuid+int(strippedy)
-    except:
-        pass
-print(currentcuid,"4th")
-currentempid =1
-cursor.execute("select MAX(empid) from empinfo")
-for z in cursor:
-    strippedz=str(z).replace('(','').replace(')','').replace(',','')
-    print(strippedz,"5th")
-    try:
-        currentempid=currentempid+int(strippedz)
-    except:
-        pass
-print(currentempid,"6th")
+
 
 def sale():
     global currentsale
@@ -84,6 +101,7 @@ def sale():
     cursor.execute(query)
     cnx.commit()
     currentsale = currentsale + 1
+
      
 def newcust():
     global currentcuid
@@ -95,6 +113,9 @@ def newcust():
     cursor.execute(query)
     cnx.commit()
     currentcuid = currentcuid + 1
+
+
+
 def newemp():
     global currentempid
     ename=input("Enter Employee Name: ")
@@ -105,11 +126,16 @@ def newemp():
     cursor.execute(query)
     cnx.commit()
     currentempid = currentempid + 1
+
+
 def delsale():
     iddel=int(input("enter order id to be deleted"))
     query="DELETE from sales where order_id="+str(iddel)
     cursor.execute(query)
     cnx.commit()
+
+
+#main
 
 while True:
     menu()
