@@ -9,7 +9,7 @@ cnx = mysql.connect(user=uname, password=pwd,host=serverip)
 cursor= cnx.cursor()
 cursor.execute("use testpylink")
 try:
-    cursor.execute("create table custinfo(custid int(6),name varchar(40),phone_no int(10),addrline1 varchar(100),addrline2 varchar(100),city varchar(50),state varchar(50),zipcode int(6))")
+    cursor.execute("create table custinfo(custid int(6),name varchar(40),phone_no int(10),address varchar(50))")
 except:
     pass
 try:
@@ -17,11 +17,7 @@ try:
 except:
     pass
 try:
-    cursor.execute("create table sales")
-except:
-    pass
-try:
-    cursor.execute("create table stock")
+    cursor.execute("create table sales(order_id ()")
 except:
     pass
 
