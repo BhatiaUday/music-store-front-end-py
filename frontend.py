@@ -100,6 +100,9 @@ def sale():
     query="insert into sales values ("+data+")"
     cursor.execute(query)
     cnx.commit()
+    print("Sale Created")
+    cursor.execute("select * from sales where order_id ="+str(currentsale))
+    cprint(cursor)
     currentsale = currentsale + 1
 
      
@@ -112,7 +115,10 @@ def newcust():
     query="insert into custinfo values ("+data+")"
     cursor.execute(query)
     cnx.commit()
+    cursor.execute("select * from custinfo where custid ="+str(currentcuid))
+    cprint(cursor)
     currentcuid = currentcuid + 1
+    wait=input("press enter to main menu...")
 
 
 
@@ -125,7 +131,10 @@ def newemp():
     query="insert into empinfo values ("+data+")"
     cursor.execute(query)
     cnx.commit()
+    cursor.execute("select * from empinfo where empid ="+str(currentempid))
+    cprint(cursor)
     currentempid = currentempid + 1
+    wait=input("press enter to main menu...")
 
 
 def delsale():
@@ -133,6 +142,7 @@ def delsale():
     query="DELETE from sales where order_id="+str(iddel)
     cursor.execute(query)
     cnx.commit()
+    wait=input("press enter to main menu...")
 
 
 #main
