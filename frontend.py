@@ -13,11 +13,11 @@ try:
 except:
     pass
 try:
-    cursor.execute("create table empinfo")
+    cursor.execute("create table empinfo(")
 except:
     pass
 try:
-    cursor.execute("create table sales(order_id ()")
+    cursor.execute("create table sales(custid int(6) FOREIGN KEY , instrument varchar(36) , order id int(6) PRIMARY KEY , empid int(6) FOREIGN KEY , mode varchar(10) ")
 except:
     pass
 
