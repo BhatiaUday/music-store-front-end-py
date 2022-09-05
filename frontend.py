@@ -17,11 +17,7 @@ try:
 except:
     pass
 try:
-<<<<<<< Updated upstream
-    cursor.execute("create table sales(order_id int PRIMARY KEY ,custid int , instrument varchar(40) , empid int , type varchar(10),price float, FOREIGN KEY (custid) REFERENCES custinfo(custid), FOREIGN KEY (empid) REFERENCES empinfo(empid))")
-=======
-    cursor.execute("create table sales(order_id int PRIMARY KEY ,custid int , instrument varchar(40) , empid int , type varchar(10),price float FOREIGN KEY (custid) REFERENCES custinfo(custid), FOREIGN KEY (empid) REFERENCES empinfo(empid))")
->>>>>>> Stashed changes
+    cursor.execute("create table sales(order_id int PRIMARY KEY ,custid int , instrument varchar(40) , empid int , type varchar(10),price int, FOREIGN KEY (custid) REFERENCES custinfo(custid), FOREIGN KEY (empid) REFERENCES empinfo(empid))")
 except:
     pass
 #functions
@@ -32,7 +28,7 @@ def cprint(cursorfx):
 
 
 
-def menu1():
+def menu():
     print("1.Make a sale")
     print("2.Add new Custumer")
     print("3.Cancel/refund a sale")
@@ -41,15 +37,19 @@ def menu1():
     print("6.Update Employee info")
     print("7.Quit")
 
-currentsale=0
+currentsale = 0
 cursor.execute("select MAX(order_id) from Sales")
 for x in cursor:
     stripped=str(x).replace('(','').replace(')','').replace(',','')
-    currentsale=currentsale+int(stripped)+1
+    try:
+        currentsale=currentsale+int(stripped)+1
+    except:
+        pass
 print(currentsale)
     
 
 def sale():
+    global currentsale
     cuid=input("Enter Cust ID: ")
     item=input("Enter Item Name: ")
     empsale=input("Enter Employee ID: ")
@@ -58,6 +58,9 @@ def sale():
     data=str(currentsale)+","+str(cuid)+","+"'"+str(item)+"'"+","+str(empsale)+","+"'"+str(type)+"'"+","+str(price)
     query="insert into sales values ("+data+")"
     cursor.execute(query)
+    cnx.commit()
+    currentsale = currentsale + 1
+     
 def cust():
     custid=int(input("enter custid"))
     cname=input("enter customer name")
@@ -71,6 +74,7 @@ def emp():
     address=input("enter address as city_area")
 cursor.execute("show tables")
 cprint(cursor)
+
 menu()
 choice=int(input("Enter Choice: "))
 if choice==1:
