@@ -3,12 +3,17 @@
 import mysql.connector as mysql
 import getpass
 import os
+
 uname=input("Username(root is default)") or "root"
-pwd=getpass.getpass("Pwd(No default value)") or "wysiwygmn@36"
+pwd=getpass.getpass("Pwd(No default value)")
 serverip=input("Server address(enter for default)") or "localhost"
 cnx = mysql.connect(user=uname, password=pwd,host=serverip)
 cursor= cnx.cursor()
-cursor.execute("use testpylink")
+try:
+    cursor.execute("create database Musicstore")
+except:
+    pass
+cursor.execute("use Musicstore")
 
 #creating database
 try:
@@ -34,36 +39,36 @@ currentsale = 1
 cursor.execute("select MAX(order_id) from sales")
 for x in cursor:
     strippedx=str(x).replace('(','').replace(')','').replace(',','')
-    print(strippedx,"1st")
+    #print(strippedx,"1st")
     try:
         currentsale=currentsale+int(strippedx)
     except:
         pass
-print(currentsale,"2nd")
+#print(currentsale,"2nd")
 
 
 currentcuid = 1
 cursor.execute("select MAX(custid) from custinfo")
 for y in cursor:
     strippedy=str(y).replace('(','').replace(')','').replace(',','')
-    print(strippedy,"3rd")
+    #print(strippedy,"3rd")
     try:
         currentcuid=currentcuid+int(strippedy)
     except:
         pass
-print(currentcuid,"4th")
+#print(currentcuid,"4th")
 
 
 currentempid =1
 cursor.execute("select MAX(empid) from empinfo")
 for z in cursor:
     strippedz=str(z).replace('(','').replace(')','').replace(',','')
-    print(strippedz,"5th")
+    #print(strippedz,"5th")
     try:
         currentempid=currentempid+int(strippedz)
     except:
         pass
-print(currentempid,"6th")
+#print(currentempid,"6th")
 
 
 #functions
@@ -71,8 +76,6 @@ print(currentempid,"6th")
 def cprint(cursorfx):
     for x in cursorfx:
         print(x)
-
-
 
 
 def menu():
@@ -86,7 +89,6 @@ def menu():
     print("8.Display all Custumers")
     print("9.Display all employees")
     print("0.Quit")
-
 
 
 def sale():
@@ -118,8 +120,7 @@ def newcust():
     cursor.execute("select * from custinfo where custid ="+str(currentcuid))
     cprint(cursor)
     currentcuid = currentcuid + 1
-    wait=input("press enter to main menu...")
-
+    wait=input("Press enter for main menu...")
 
 
 def newemp():
@@ -134,10 +135,11 @@ def newemp():
     cursor.execute("select * from empinfo where empid ="+str(currentempid))
     cprint(cursor)
     currentempid = currentempid + 1
-    wait=input("press enter to main menu...")
+    wait=input("Press enter for main menu...")
+
 
 def updateinfo():
-    iddel=int(input("enter order id to be updated"))
+    iddel=int(input("Enter Order ID to be updated: "))
     query="DELETE from sales where order_id="+str(iddel)
     cursor.execute(query)
     cnx.commit()
@@ -153,7 +155,7 @@ def updateinfo():
     print("Sale Updated Successfully")
     cursor.execute("select * from sales where order_id ="+str(iddel))
     cprint(cursor)
-    wait=input("press enter to main menu...")
+    wait=input("Press enter for main menu...")
 
 
 def delsale():
@@ -171,89 +173,75 @@ def delsale():
         cursor.execute(query)
         cnx.commit()
         print("Deleted Successfully")
-        wait=input("press enter to main menu...")
+        wait=input("Press enter for main menu...")
 
 
 def cinfo():
 
-    cid=int(input("enter custid to update data"))    
-    print("1.customerid,2.name,3.phone_no,4.address")
-    choic=input("enter which attrubute yuo want to update...")
+    cid=int(input("Enter Custumer ID to update data: "))    
+    print("1.Name, 2.Phone number, 3.Address")
+    choic=int(input("Select which attrubute you want to update..."))
     
-    if choic=="1":
-        ncid=int(input("enter new customer id..."))
-        query="update custinfo set custid=%s where custid=%s"
-        val=(ncid,cid)
-        cursor.execute(query,val)
-        cnx.commit()
-        print("Updated Successfully")
-        wait=input("press enter to main menu...")
-    if choic=="2":
-        cname=input("enter new name...")
+    if choic==1:
+        cname=input("Enter new Name: ")
         query="update custinfo set name=%s where custid=%s"
         val=(cname,cid)
         cursor.execute(query,val)
         cnx.commit()
         print("Updated Successfully")
-        wait=input("press enter to main menu...")
-    if choic=="3":
-        cphone=int(input("enter new phone no..."))
+        wait=input("Press enter for main menu...")
+    if choic==2:
+        cphone=int(input("Enter new Phone Number: "))
         query="update custinfo set phone_no=%s where custid=%s"
         val=(cphone,cid)
         cursor.execute(query,val)
         cnx.commit()
         print("Updated Successfully")
-        wait=input("press enter to main menu...")
-    if choic=="4":
-        cadd=input("enter new address...")
+        wait=input("Press enter for main menu...")
+    if choic==3:
+        cadd=input("Enter new Address: ")
         query="update custinfo set address=%s where custid=%s"
         val=(cadd,cid)
         cursor.execute(query,val)
         cnx.commit()
         print("Updated Successfully")
-        wait=input("press enter to main menu...")
+        wait=input("Press enter for main menu...")
+
 
 def einfo():
 
-    eid=int(input("enter empid to update data"))    
-    print("1.employee id,2.name,3.phone_no,4.address")
-    choic=input("enter which attrubute yuo want to update...")
+    eid=int(input("Enter Employee ID to update data: "))    
+    print("2.Name, 2.Phone Number, 3.Address")
+    choic=int(input("enter which attrubute you want to update..."))
     
-    if choic=="1":
-        neid=int(input("enter new employee id..."))
-        query="update empinfo set empid=%s where empid=%s"
-        val=(neid,eid)
-        cursor.execute(query,val)
-        cnx.commit()
-        print("Updated Successfully")
-        wait=input("press enter to main menu...")
-    if choic=="2":
-        ename=input("enter new name...")
+    if choic==1:
+        ename=input("Enter new Name: ")
         query="update empinfo set empname=%s where empid=%s"
         val=(ename,eid)
         cursor.execute(query,val)
         cnx.commit()
         print("Updated Successfully")
-        wait=input("press enter to main menu...")
-    if choic=="3":
-        ephone=int(input("enter new phone no..."))
+        wait=input("Press enter for main menu...")
+    if choic==2:
+        ephone=int(input("Enter new Phone Number: "))
         query="update empinfo set phone_no=%s where empid=%s"
         val=(ephone,eid)
         cursor.execute(query,val)
         cnx.commit()
         print("Updated Successfully")
-        wait=input("press enter to main menu...")
-    if choic=="4":
-        eadd=input("enter new address...")
+        wait=input("Press enter for main menu...")
+    if choic==3:
+        eadd=input("Enter new Address: ")
         query="update empinfo set address=%s where empid=%s"
         val=(eadd,eid)
         cursor.execute(query,val)
         cnx.commit()
         print("Updated Successfully")
-        wait=input("press enter to main menu...")
+        wait=input("Press enter for main menu...")
 
 
 #main
+
 
 while True:
     menu()
@@ -273,15 +261,14 @@ while True:
     if choice==7:
         cursor.execute("select * from sales")
         cprint(cursor)
-        wait=input("press enter to main menu...")
+        wait=input("Press enter for main menu...")
     if choice==8:
         cursor.execute("select * from custinfo")
         cprint(cursor)
-        wait=input("press enter to main menu...")
+        wait=input("Press enter for main menu...")
     if choice==9:
         cursor.execute("select * from empinfo")
         cprint(cursor)
-        wait=input("press enter to main menu...")
+        wait=input("Press enter for main menu...")
     if choice==0:
         os._exit(1)
-
